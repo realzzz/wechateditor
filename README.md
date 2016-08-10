@@ -19,7 +19,7 @@ An online(production) site is the best explaination of this project, visit [DWED
 1. Purely javascript project. Nodejs as backend. JQuery + Bootstrap as front end.
 2. Service using nodejs + mysql.
 3. Heavy server light browser design. Most of the data handle/render happens in server side. (Which I believe is the future)
-4. Data exchange all in json format, only render into html when it is need to be drawed. 
+4. Data exchange all in json format, only render into html when it needs to be drawed. 
 5. Using LeanCloud as user register/manage solution - it's just a simple way, you can always switch to your prefered mechanism.
 6. Using qiniu as image storage service provider, you may switch to any cloud storage service you prefer.
 7. Some spider features are using casperjs as engine. 

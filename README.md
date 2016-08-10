@@ -12,6 +12,7 @@ An online(production) site is the best explaination of this project, visit [DWED
 3. You can also copy/paste other html section from the browser into article, then modify the content you brought in.
 4. It supports to import wechat article directly into editor, as your article. 
 5. Every operation is tracable, supports undo/redo for all the steps you've done editing the article. 
+6. Support to insert snapshot from link of Taobao, Tmall, weibo.
 
 
 ### Tech introduction

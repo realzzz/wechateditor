@@ -22,6 +22,7 @@ An online(production) site is the best explaination of this project, visit [DWED
 4. Data exchange all in json format, only render into html when it is need to be drawed. 
 5. Using LeanCloud as user register/manage solution - it's just a simple way, you can always switch to your prefered mechanism.
 6. Using qiniu as image storage service provider, you may switch to any cloud storage service you prefer.
+7. Some spider features are using casperjs as engine. 
 
 
 

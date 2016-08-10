@@ -33,3 +33,8 @@ An online(production) site is the best explaination of this project, visit [DWED
 5. (Optional - if you want to have user system) Set up LeanCloud apikey&secret at [boot.js line18](enhancedmd/public/js/KCEPROD/boot/boot.js)
 6. Start server under enhancedmd  (recommand way -  for development : `supervisor bin/www`   for debug  : `node-debug bin/www` ) . Visit [localhost](http://localhost:3000)
 
+### Check out desgins & code guidence at this [Doc](Docs/design.md)
+
+### About this project
+This is our companies project starting from Feb/2016, the development last for about three month.
+I've designed the whole architecture and implement majority of the code. 

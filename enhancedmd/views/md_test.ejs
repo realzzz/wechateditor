@@ -1,0 +1,598 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <title>edit</title>
+        <style>
+            html {
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                font-family: "Microsoft YaHei","Tahoma";
+                font-size: 14px;
+                background: #fff;
+            }
+            body {
+                margin: 0;
+            }
+
+            textarea {
+                padding: 0;
+            }
+            .bgColor1 {
+                background: #c6c6c6;
+            }
+            .bgColor2 {
+                background: #d0d0d0;
+            }
+
+            .outerBox {
+                font-size: 0;
+                padding: 2%;
+            }
+            .box {
+                display: inline-block;
+                vertical-align: top;
+                width: 46%;
+                padding: 2%;
+                height: 520px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                font-size: 14px;
+                color: #333;
+            }
+            .textInput {
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: none;
+                resize: none;
+            }
+            .text {
+                word-wrap: break-word;
+            }
+
+        </style>
+    </head>
+    <body>
+        <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+
+        <div>
+
+            <Button id="btn_create">
+                create article
+            </Button>
+            <Button id="btn_render">
+                render article
+            </Button>
+            <Button id="btn_delete">
+                delete article
+            </Button>
+
+            <Button id="btn_insertnode">
+                insert node
+            </Button>
+            <Button id="btn_updatenode">
+                udpate node
+            </Button>
+            <Button id="btn_deletenode">
+                delete node
+            </Button>
+
+            <Button id="btn_inserttemplate">
+                insert template
+            </Button>
+            <Button id="btn_updatetemplate">
+                udpate template
+            </Button>
+            <Button id="btn_deletetemplate">
+                delete template
+            </Button>
+
+            <Button id="btn_insertib">
+                insert inlineblock
+            </Button>
+            <Button id="btn_updateib">
+                udpate inlineblock
+            </Button>
+            <Button id="btn_deleteib">
+                delete inlineblock
+            </Button>
+
+            <Button id="btn_insertext">
+                insert extEle
+            </Button>
+            <Button id="btn_udpateext">
+                udpate extEle
+            </Button>
+            <Button id="btn_deleteext">
+                delete extEle
+            </Button>
+
+            <Button id="btn_boldtext">
+                bold text
+            </Button>
+            <Button id="btn_italictext">
+                italic text
+            </Button>
+            <Button id="btn_underlinetext">
+                underline text
+            </Button>
+            <Button id="btn_clearstyle">
+                clear text style
+            </Button>
+
+            <Button id="btn_html2json">
+                Html2Json
+            </Button>
+
+        </div>
+        <div class="outerBox">
+            <div class="box bgColor1">
+                <textarea id="txt1" class="textInput bgColor1"></textarea>
+            </div>
+            <div class="box bgColor2">
+                <div id="divc" class="canvas kc-editable"></div>
+            </div>
+            <div class="box bgColor2">
+                <span id="div3" class="kcpaste" contenteditable="true" style="width:100%; height:100% ; display:block"></span>
+            </div>
+        </div>
+
+        <ul>
+    <li>
+        <label for="token">token:</label>
+        <input id="token" name="token" class="ipt" value=""><a target="blank" href="http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken">在线生成token</a>
+    </li>
+    <li>
+        <label for="key">key:</label>
+        <input id="key" name="key" class="ipt" value="">
+    </li>
+    <li>
+        <label for="bucket">照片:</label>
+        <input id="file" name="file" class="ipt" type="file" />
+    </li>
+    <li>
+        <input id="btn_upload" type="button" value="提交">
+    </li>
+    <div id="progressbar"><div class="progress-label"></div></div>
+</ul>
+<div id="dialog" title="上传成功"></div>
+
+        <script>
+
+        $(document).ready(function() {
+            var Qiniu_UploadUrl = "http://up.qiniu.com";
+
+
+            $("#btn_upload").click(function() {
+                //普通上传
+                var Qiniu_upload = function(f, token, key) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', Qiniu_UploadUrl, true);
+                    var formData, startDate;
+                    formData = new FormData();
+                    if (key !== null && key !== undefined) formData.append('key', key);
+                    formData.append('token', token);
+                    formData.append('file', f);
+                    var taking;
+
+
+                    xhr.onreadystatechange = function(response) {
+                        if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText != "") {
+                            var blkRet = JSON.parse(xhr.responseText);
+                            console && console.log(blkRet);
+                        } else if (xhr.status != 200 && xhr.responseText) {
+
+                        }
+                    };
+                    startDate = new Date().getTime();
+                    //$("#progressbar").show();
+                    xhr.send(formData);
+                };
+                var token = $("#token").val();
+                if ($("#file")[0].files.length > 0 && token != "") {
+                    Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
+                } else {
+                    console && console.log("form input error");
+                }
+            })
+        })
+
+
+            var ignoreInput = false;
+
+            var currentSelectionStart = -1;
+            var currentSelectionEnd = -1;
+
+            // catch edit event
+            var bindEditor = function () {
+
+                $(".kc-editable").on("focusout", function (event) {
+                    // this is used to get selection
+                    //currentSelectionStart = -1;
+                    //currentSelectionEnd = -1;
+                });
+
+                $(".kc-editable").on("compositionstart", function (event) {
+                    // this is used to get selection
+                    compositionstart();
+                });
+
+                $(".kc-editable").on("compositionend", function (event) {
+                    // this is used to get selection
+                    compositionend();
+                });
+
+                $(".kc-editable").on("keydown mouseup", function (event) {
+                    // this is used to get selection
+                    //console.log("keydown event happend to target " + event.target);
+                    //event.stopPropagation();
+                    getSelectionHtml();
+                });
+
+                $(".kc-editable").on("input", function (event) {
+                    getInput(event);
+                });
+            };
+
+            function compositionstart() {
+                console.log("compostion start event detected !");
+                ignoreInput = true;
+            }
+
+            function compositionend() {
+                console.log("compostion end event detected !");
+                ignoreInput = false;
+            }
+
+            function getSelectionHtml() {
+                if(ignoreInput) return;
+                console.log("getSelectionHtml");
+                var html = "";
+                if (typeof window.getSelection != "undefined") {
+                    var sel = window.getSelection();
+                    if (sel.rangeCount) {
+                        for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                            var startcontainer = sel.getRangeAt(i).startContainer;
+                            var startoffset = sel.getRangeAt(i).startOffset;
+                            var endcontainer = sel.getRangeAt(i).endContainer;
+                            var endoffset = sel.getRangeAt(i).endOffset;
+                            var startnodeid = startcontainer.parentElement.getAttribute('rawid');
+                            var endnodeid = endcontainer.parentElement.getAttribute('rawid');
+
+                            if (startnodeid == undefined) {
+                                // this means everything is broken
+                                currentSelectionStart = startoffset;
+                                currentSelectionEnd = endoffset;
+                            } else {
+                                // or id exists let's make usage of them -> first thing is to find the parents holding all of you
+                                var commonParent = startcontainer.parentElement.parentElement;
+                                var childArray = commonParent.children;
+                                var textLength = 0;
+                                for (var j = 0; j < childArray.length; j++) {
+                                    var tmpChild = childArray[j];
+                                    if (tmpChild.getAttribute('rawid') === startnodeid){
+                                        currentSelectionStart = textLength + startoffset;
+                                    }
+                                    if (tmpChild.getAttribute('rawid') === endnodeid){
+                                        currentSelectionEnd = textLength + endoffset;
+                                        break;
+                                    }
+                                    textLength += tmpChild.innerText.length;
+                                }
+                            }
+
+                            console.log("currentSelectionStart" + currentSelectionStart);
+                            console.log("currentSelectionEnd" + currentSelectionEnd);
+                        }
+                    }
+                } else if (typeof document.selection != "undefined") {
+                    if (document.selection.type == "Text") {
+                        html = document.selection.createRange().htmlText;
+                    }
+                }
+            }
+
+            function getInput(event) {
+                if(ignoreInput) return;
+
+                var oldSelectStart = currentSelectionStart;
+                var oldSelectEnd = currentSelectionEnd;
+                console.log("oldSelectStart" + oldSelectStart);
+                console.log("oldSelectEnd" + oldSelectEnd);
+                getSelectionHtml();
+
+                if (currentSelectionStart == currentSelectionEnd) {
+                    // iterate through items to get the data
+                    var parentElement = event.target;
+                    var updateContent = "";
+                    var textLength = 0;
+                    var textNodesArray = parentElement.children;
+                    var metStart = false,
+                        metEnd = false;
+                    if(oldSelectStart == currentSelectionStart){
+                        // it's a remove operation
+                        updateContent = "";
+                    }
+                    else if (currentSelectionStart < oldSelectStart){
+                        // back space operation
+                        updateContent = "";
+                        oldSelectStart = currentSelectionStart;
+                    }
+                    else{
+                        // should be oldSelectStart > currentSelectionStart, it's a replace operation
+                        if (textNodesArray.length == 0){
+                            updateContent += parentElement.innerText.substring(oldSelectStart, currentSelectionEnd);
+                        }
+                        else{
+                            for (var i = 0; i < textNodesArray.length; i++) {
+                                var node = textNodesArray[i];
+                                var text = node.innerText;
+                                if (textLength + text.length - 1 >= oldSelectStart && !metStart) {
+                                    metStart = true;
+                                    if (textLength + text.length >= currentSelectionEnd) {
+                                        metEnd = true;
+                                        updateContent += text.substring(oldSelectStart - textLength, currentSelectionEnd - textLength);
+                                        break;
+                                    } else {
+                                        updateContent += text.substring(oldSelectStart - textLength);
+                                    }
+                                }
+
+                                if (metStart) {
+                                    if (textLength + text.length >= currentSelectionEnd && !metEnd) {
+                                        metEnd = true;
+                                        updateContent += text.substring(0, currentSelectionEnd - textLength);
+                                        break;
+                                    } else {
+                                        updateContent += text;
+                                    }
+                                }
+                                textLength += text.length;
+                            }
+                        }
+                    }
+
+                    var textChangeObj = {};
+                    var crkey = oldSelectStart + "-" + oldSelectEnd;
+                    textChangeObj[crkey] = updateContent;
+                    // todo make the opaid and kc path correct
+                    console.log("updateing node " + crkey + " " + updateContent);
+                    nodefunc("updateNode", opaid, "text.0", "text", {"textchange":textChangeObj});
+                }
+
+            }
+
+            function restoreSelection(){
+                if (currentSelectionStart > -1 && currentSelectionEnd > -1){
+                    var mainDiv = $(".kc-editable")[0];
+                    var length = 0;
+                    var startNode = undefined;
+                    var endNode;
+                    var startOffset =0 ;
+                    var endOffset = 0;
+                    for (var i = 0; i < mainDiv.children.length; i++) {
+                        var child = mainDiv.children[i];
+                        var text = child.innerText;
+                        if (length + text.length > currentSelectionStart && startNode == undefined){
+                            startNode = child.firstChild;
+                            startoffset = currentSelectionStart-length;
+                        }
+                        if (length + text.length > currentSelectionEnd){
+                            endNode = child.firstChild;
+                            endoffset = currentSelectionEnd-length;
+                            break;
+                        }
+                        length += text.length;
+
+                        if(i+1 ==  mainDiv.children.length){
+                            if (startNode == undefined){
+                                startNode = child.firstChild;
+                                startoffset = text.length;
+                            }
+                            if (endNode == undefined){
+                                endNode = child.firstChild;
+                                endOffset = text.length;
+                            }
+                        }
+                    }
+
+                    if (startNode != undefined && endNode != undefined){
+                        var range = document.createRange();
+                        range.selectNode(startNode);
+                        range.setStart(startNode, startoffset);
+                        range.collapse(true);
+                        //range.setEnd(endNode, endOffset);
+                        var sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                    }
+                }
+            }
+
+            var opaid = 41;
+
+            $("#btn_boldtext").click(function () {
+                var textStyleChangeObj = {};
+                var crkey = currentSelectionStart + "-" + currentSelectionEnd;
+                textStyleChangeObj[crkey] = {"font-weight":"bold"};
+                nodefunc("updateNode", opaid, "text.0", "text", {"chtrstyle":textStyleChangeObj});
+            });
+
+            $("#btn_italictext").click(function () {
+                var textStyleChangeObj = {};
+                var crkey = currentSelectionStart + "-" + currentSelectionEnd;
+                textStyleChangeObj[crkey] = {"font-style":"italic"};
+                nodefunc("updateNode", opaid, "text.0", "text", {"chtrstyle":textStyleChangeObj});
+            });
+
+            $("#btn_underlinetext").click(function () {
+                var textStyleChangeObj = {};
+                var crkey = currentSelectionStart + "-" + currentSelectionEnd;
+                textStyleChangeObj[crkey] = {"text-decoration":"underline"};
+                nodefunc("updateNode", opaid, "text.0", "text", {"chtrstyle":textStyleChangeObj});
+            });
+            $('#btn_clearstyle').click(function (){
+                var textStyleChangeObj = {};
+                var crkey = currentSelectionStart + "-" + currentSelectionEnd;
+                textStyleChangeObj[crkey] = "";
+                nodefunc("updateNode", opaid, "text.0", "text", {"chtrstyle":textStyleChangeObj});
+            });
+
+            var articlefunc = function articlefunc(operation, articleid) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mdop",
+                    data: JSON.stringify({op: operation, aid: articleid}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (result) {
+                        //console.log("result  = " + result);
+                        $(".canvas").html(result);
+                        bindEditor();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+            }
+
+            var nodefunc = function nodefunc(operation, articleid, nodepath, nodetype, nodeattrs) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mdop",
+                    data: JSON.stringify({op: operation, aid: articleid, kcpath: nodepath, type: nodetype, attrs: nodeattrs}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (resultobj) {
+                        console.log("result  = " + resultobj);
+                        //$(".canvas").html(resultobj);
+                        $(".kc-editable").replaceWith(resultobj);
+                        restoreSelection();
+                        bindEditor();
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+            }
+
+            $("#btn_create").click(function () {
+                articlefunc("createArticle", "");
+            });
+
+            var opaid = 41;
+
+            $("#btn_render").click(function () {
+                articlefunc("renderArticle", opaid);
+            });
+
+            $("#btn_delete").click(function () {
+                articlefunc("deleteArticle", opaid);
+            });
+
+            // note shall change aritical id for your own test
+            $("#btn_insertnode").click(function () {
+                nodefunc("insertNode", opaid, "", "text", {"value": "1"});
+            });
+
+            $("#btn_updatenode").click(function () {
+                nodefunc("updateNode", opaid, "text.1", "text", {"value": "3"});
+            });
+
+            $("#btn_deletenode").click(function () {
+                nodefunc("deleteNode", opaid, "text.1", "", "");
+            });
+
+            $("#btn_inserttemplate").click(function () {
+                nodefunc("insertNode", opaid, "", "template", {
+                    "tid": "1",
+                    "container.0#text": "test"
+                });
+            });
+
+            $("#btn_updatetemplate").click(function () {
+                nodefunc("updateNode", opaid, "text.2", "text", {"testattr": "1"});
+            });
+
+            $("#btn_deletetemplate").click(function () {
+                nodefunc("deleteNode", opaid, "text.2", "", "");
+            });
+
+            $("#btn_insertib").click(function () {
+                var testc = "<text attr=\"aaa\">inlineblock中文</text>"
+                nodefunc("insertNode", opaid, "", "inline", {"bid": 2});
+            });
+
+            $("#btn_updateib").click(function () {
+                nodefunc("updateNode", opaid, "text.2", "text", {"testattr": "1"});
+            });
+
+            $("#btn_deleteib").click(function () {
+                nodefunc("deleteNode", opaid, "text.2", "", "");
+            });
+
+            $("#btn_insertext").click(function () {
+                nodefunc("insertNode", opaid, "ext", "ext", {
+                    // 'url': 'https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.1.M1r7Xx&id=523937274419&skuId=3131139488796&areaId=330100&cat_id=2&rn=b079407c084682c865f997f6e1715308&user_id=2138608030&is_b=1', 'url':
+                    // 'https://item.taobao.com/item.htm?spm=a21bt.7916600.181191.1.VwG0re&id=525147245060',
+                    'url': 'https://item.taobao.com/item.htm?spm=a21bt.7916600.181191.1.VwG0re&id=525147245060',
+                    'refresh': 0,
+                    'key': '简单的'
+                });
+            });
+
+            $("#btn_updateext").click(function () {
+                nodefunc("updateNode", opaid, "ext.1", "ext", {
+                    'url': 'http://weibo.com/u/5697200518?topnav=1%26wvr=6%26topsug=1',
+                    'refresh': 0,
+                    'key': '简单的'
+                });
+            });
+
+            $("#btn_deleteext").click(function () {
+                nodefunc("deleteNode", opaid, "ext.2", "", "");
+            });
+
+            $("#btn_html2json").click(function () {
+                var html = $('#txt1').val();
+
+                html2json(html);
+            });
+
+
+            var html2json = function html2json(htmlstr) {
+                $.ajax({
+                    type: "POST",
+                    url: "/html2json",
+                    data: JSON.stringify({ html: htmlstr}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (resultobj) {
+                        console.log("result  = " + resultobj);
+                        $('#divc').html(resultobj);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+            }
+
+            $(".kcpaste").on('paste',function(e) {
+                e.preventDefault();
+                var text = (e.originalEvent || e).clipboardData.getData('text/html') || prompt('Paste something..');
+                var $result = $('<div></div>').append($(text));
+                $(".kcpaste").html($result.html());
+            });
+
+        </script>
+
+    </body>
+</html>

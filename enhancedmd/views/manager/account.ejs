@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>多维编辑器管理后台-用户信息</title>
+<link rel="stylesheet" type="text/css" href="/css/manager.css" />
+</head>
+<body style="height:100%">
+<% include frame/header.ejs %>
+<% include frame/siderbar.ejs %>
+<div style="height:100%">
+	<div class="tc bgb2 w2">
+		<div class="di bgw b2 br2" style="margin-top: 67px;margin-left: 100px;">
+			<div class="mg30">
+				<div class="fs20 colorbl pb20">账户设置</div>
+				<div class="fs0 pb20 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr">用户名</label>
+					<input type="text" name="name" class="di vm sInput ml20 w4" placeholder="用户13909089765" />
+				</div>
+				<div class="fs0 pb20 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr">邮箱</label>
+					<input type="text" name="name" class="di vm sInput ml20 w4" placeholder="请输入您的email" />
+				</div>
+				<div class="fs0 pb10 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr">登录密码</label>
+					<input type="text" name="name" class="di vm sInput ml20 w5" placeholder="在此输入原密码（没有可以不填）" />
+				</div>
+				<div class="fs0 pb10 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr"></label>
+					<input type="text" name="name" class="di vm sInput ml20 w5" placeholder="输入新密码" />
+				</div>
+				<div class="fs0 pb20 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr"></label>
+					<input type="text" name="name" class="di vm sInput ml20 w5" placeholder="再次输入新密码" />
+				</div>
+				<div class="fs0 pb100 tl">
+					<label for="name" class="di vm fs14 colorb w7 tr">手机号码</label>
+					<input type="text" name="name" class="di vm sInput ml20 w4" placeholder="请输入手机号码" />
+				</div>
+				<div class="tr"><a class="di bgr fs14 colorw w3 pt5 pb5 tc br2">保存修改</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script data-main="/js/manager/config.js" src="/bower_components/requirejs/require.js">
+</script>
+
+<script>
+require(['/js/manager/account.js'], function(initialize) {
+    initialize();
+});
+</script>
+</body>
+</html>

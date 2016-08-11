@@ -1,0 +1,118 @@
+/*
+* @Author: Vaninadh
+* @Date:   2016-02-24 13:48:09
+* @Last Modified by:   Vaninadh
+* @Last Modified time: 2016-03-25 15:52:49
+*/
+
+.canvas {
+    position: relative;
+    width: 100%;
+    min-height: 800px;
+    display: inline-block;
+}
+
+.kc-editable {
+    width: 100%;
+}
+
+.kc-dashed {
+    outline: #888 dashed 1px;
+    box-sizing: border-box;
+}
+
+.kc-dashed.over {
+    outline: #ff0000
+}
+
+.kc-container {
+    padding: 5px;
+}
+
+.kc-dashed.selected {
+    outline: #3b97e3 solid 3px!important;
+}
+
+.tmpdrag {
+    opacity: .55;
+    filter: alpha(opacity=55);
+    border: 2px dashed #ccc;
+    outline: 0!important;
+    //position: absolute;
+    z-index: 55;
+}
+
+.box-button a.selected,
+.box-button a:hover {
+    background-color: #517b97;
+    color: #fff;
+}
+
+.box-button a {
+    color: #000;
+    background-color: #808080;
+    border-radius: 2px;
+    font-size: 15px;
+    text-align: center;
+    margin-right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    width: 110px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.box-property {
+    margin: 10px;
+    border: solid 1px #070707;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.selected {
+    outline: #3b97e3 solid 3px!important;
+}
+
+.ui-resizable-handle {
+    width: 25.45px;
+    height: 25.45px;
+    background-size: cover;
+    touch-action: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    background-image: url(../images/4bdc45.dsk-op-hdl-resize.png);
+    position: absolute;
+}
+
+.ui-resizable-se {
+    cursor: nwse-resize;
+}
+
+.ui-resizable-sw {
+    cursor: nesw-resize;
+}
+
+.ui-resizable-ne {
+    cursor: nesw-resize;
+}
+
+.ui-resizable-nw {
+    cursor: nwse-resize;
+}
+
+.ui-resizable-w {
+    cursor: ew-resize;
+}
+
+.ui-resizable-e {
+    cursor: ew-resize;
+}
+
+.ui-resizable-n {
+    cursor: ns-resize;
+}
+
+.ui-resizable-s {
+    cursor: ns-resize;
+}

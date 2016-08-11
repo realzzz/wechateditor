@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>多维编辑器</title>
+<link rel="stylesheet" type="text/css" href="/css/kceditor.css"/>
+<link rel="stylesheet" type="text/css" href="/css/grid-0.5.6.min.css"/>
+<style>
+html{height: 100%;padding: 0px;margin: 0px;font-family:"Microsoft YaHei","Tahoma";font-size:14px;background:#fff;}
+body{margin:0;}
+ul, li {margin:0;padding:0;}
+textarea {padding:0;}
+a{cursor: pointer;}
+
+.bgColor1 {background:#f6f6f6;}
+.bgColor2 {background:#f0f0f0;}
+
+.outerBox {font-size:0;padding:2%;}
+.box {display:inline-block;vertical-align:top;width:48%;padding:2% 0 2% 2%;font-size:14px;color:#333;}
+.box2 {position:relative;    min-height: 800px;}
+.leftToRight {position:absolute;left:0;top:250px;font-size:20px;color:#333;padding:10px 3px;border:1px solid #cecece;border-radius:3px;}
+.box2 .text {word-wrap: break-word;height:520px;overflow-y:auto;overflow-x:hidden;border:none;}
+.textInput {width:100%;height:520px;overflow-y:auto;overflow-x:hidden;border:none;outline:none; resize:none;font-size:14px;color:#333;font-family:"Microsoft YaHei","Tahoma";margin-bottom:0;}
+.item {margin:0 10px 10px 0;}
+.ui-icon-pencil {display:inline-block;width:16px;height:16px;background:url(images/iconfont-pencil.png);}
+.ui-icon-close {display:inline-block;width:16px;height:16px;background:url(images/iconfont-delete.png);}
+::-webkit-scrollbar-track {background-color:#ddd;} /* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-thumb {background-color:#aaa;} /* 滑块颜色 */
+::-webkit-scrollbar-button {background-color: #7c2929;} /* 滑轨两头的监听按钮颜色 */
+::-webkit-scrollbar-corner {background-color: black;} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+::-webkit-scrollbar {width:15px;}
+</style>
+</head>
+
+<body>
+<div class="outerBox">
+	<div id="menudiv" class="box bgColor1 box1">
+
+		<div class="box-button" >
+    <div style = "">
+            <a id="containerBtn" class="item" >拖拽容器到画图测试按钮</a>
+ </div>
+			<a id="" class="newarticle item">新建文章</a>
+            <div style = "">
+			    <a id="" class="loadarticle item" >加载文章</a>
+                <input class="articleid" placeholder="请输入文章id" type="number" min="0"></input>
+            </div>
+            <div>
+                <a id="" class="insertcontainer item" >添加容器</a>
+            </div>
+            <div>
+                <a id="" class="insertelement item" >添加元素</a>
+                <select class="typeselect">
+                    <option value="text">文字</option>
+                    <option value="image">图片</option>
+                    <option value="ext">淘宝新浪</option>
+                    <option value="template">模板</option>
+                    <option value="inline">html</option>
+                </select>
+                <input class="idinput" style="display: none" placeholder="请输入相关id" type="number" min="0"></input>
+                <input class="contentinput" style="display: none" placeholder="html(模板/图片)或者链接(三方)" ></input>
+                <input class="keyinput" style="display: none" placeholder="新浪微博关键字"></input>
+            </div>
+            <div>
+                <a id="" class="deleteelement item" >删除</a>
+            </div>
+		</div>
+
+        <div style='background-color: lightblue' width="100px">
+            <img class="turbine" width="100px" height="auto" id="rotatorController" src="./img/turbine.png" >
+        </div>
+        <!--Button id="uploadbtn"> 测试文件上传</Button>\
+        <input id="file" name="file" class="ipt" type="file" /-->
+
+		<div class="box-property"/>
+            <div>插入方式</div>
+            <select class="insertmethod">
+                <option value="after">insert after</option>
+                <option value="into">insert into</option>
+            </select>
+		</div>
+
+        <div class="box-textstyle box-property">
+            <div>编辑文字风格</div>
+            <Button id="btextbtn"> 粗体</Button>
+            <Button id="itextbtn"> 斜体</Button>
+            <Button id="utextbtn"> 下划线</Button>
+            <Button id="ctextbtn"> 清除风格</Button>
+        </div>
+
+        <div class="box-attributes">
+            <div>编辑选中元素属性</div>
+            <div>请注意对于style而言，属性key为 style-key value为""表示删除 else为更新</div>
+            <button id="btnAddAttr" class="btnAddAttr" >Add Row</button>
+            <br><br>
+            <table id="grid"></table>
+            <div id="dialog" style="display:none">
+                <input type="hidden" id="ID">
+                <table border="0">
+                    <tbody><tr>
+                        <td><label for="attrKey">key:</label></td>
+                        <td><input type="text" id="attrKey"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="attrValue">value</label></td>
+                        <td><input type="text" id="attrValue"></td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+
+        <div class="box-style">
+        </div>
+
+	</div>
+	<div class="box bgColor2 box2">
+		<!--div class="leftToRight">></div-->
+		<div class="canvas">
+
+		</div>
+	</div>
+</div>
+
+
+<script data-main="/js/kceditor.js" src="/js/require.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+CREATE SCHEMA `kcmd` DEFAULT CHARACTER SET utf8 ;
+
+CREATE TABLE `kcmd`.`kcmd_article` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` LONGTEXT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `kcmd`.`kcmd_template` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` LONGTEXT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `kcmd`.`kcmd_inlineblock` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` LONGTEXT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `kcmd`.`kcmd_element_ext` (
+ 	`id` INT NOT NULL AUTO_INCREMENT,
+	`url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+	`type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+ 	`content` LONGTEXT NULL,
+ 	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `kcmd_element_ext_html` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of kcmd_element_ext_html
+-- ----------------------------
+INSERT INTO `kcmd_element_ext_html` VALUES ('1', '<section style=\"padding: 5px 10px; font: 16px/1.4 \'Microsoft Yahei\'; background: #fff;\">\r\n    <section style=\"border: 1px solid #ececec; border-radius: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, .1);\">\r\n     <section style=\"padding: 10px;\"><img id=\"img\" alt=\"\" style=\"width: 100%; vertical-align: top; border: none;\"></section>\r\n     <section style=\"border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; padding: 10px; overflow: hidden;\">\r\n       <section id=\"title\" style=\"float: left; width: 70%; overflow: hidden;\"></section>\r\n       <section style=\"float: right; width: 30%; overflow: hidden; text-align: right;\">\r\n          <span id=\"price\" style=\"display: block;\"></span>\r\n          <del id=\"price_del\" style=\"display: block; color: #9b9b9b;\"></del>\r\n        </section>\r\n      </section>\r\n      <section style=\"overflow: hidden; font-size: 14px;\">\r\n        <section style=\"float: left; padding: 0 10px; line-height: 30px;\">\r\n          <img src=\"img/36.gif\" alt=\"\" style=\"width: 16px; height: 14px; vertical-align: middle; border: none;\">\r\n          <span id=\"reviews\" style=\"vertical-align: middle;\"></span>\r\n        </section>\r\n        <section id=\"copy\" style=\"float: right; border-left: 1px solid #ececec; font-size: 14px; line-height: 30px; padding: 0 10px;\">复制淘宝口令</section>\r\n      </section>\r\n    </section>\r\n    <section style=\"padding-bottom: 20px; color: #bbb; font-size: 12px; line-height: 1.5;\">\r\n     <p id=\"source\" style=\"margin: 0; text-align: right;\"></p>\r\n   </section>\r\n  </section>');
+INSERT INTO `kcmd_element_ext_html` VALUES ('2', '  <section style=\"padding: 5px 10px; font: 14px/1.4 \'Microsoft Yahei\'; background: #fff;\">\r\n    <section style=\"border: 1px solid #ececec; border-radius: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, .1);\">\r\n     <section style=\"padding: 10px; overflow: hidden; font-size: 12px; color: #bbb;\">\r\n        <section style=\"float: left; width: 60%\">\r\n         <img id=\"head\" alt=\"\" style=\"float: left; width: 30px; height: 30px; border-radius: 2px; margin-right: 10px;\">\r\n          <section>\r\n           <p id=\"name\" style=\"margin: 0;\"></p>\r\n          </section>\r\n        </section>\r\n        <section style=\"float: right;\">\r\n         <p id=\"date\" style=\"margin: 0;\">2015.12.12 20:00</p>\r\n        </section>\r\n      </section>\r\n      <section style=\"padding:10px; border-top: 1px solid #ececec;\">\r\n        <section>\r\n         <p id=\"des\" style=\"margin: 1em 0;\"></p>\r\n       </section>\r\n        <section style=\"padding: 10px;\"><img id=\"img\" alt=\"\" style=\"width: 100%; vertical-align: top; border: none;\"></section>\r\n     </section>\r\n    </section>\r\n    <section style=\"padding-bottom: 20px; color: #bbb; font-size: 12px; line-height: 1.5;\">\r\n     <p style=\"margin: 0; text-align: right;\">来自微博</p>\r\n   </section>\r\n  </section>');
+INSERT INTO `kcmd_element_ext_html` VALUES ('3', '  <section style=\"padding: 5px 10px; font: 14px/1.4 \'Microsoft Yahei\'; background: #fff;\">\r\n    <section style=\"border: 1px solid #ececec; border-radius: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, .1);\">\r\n     <section style=\"padding: 10px; overflow: hidden; font-size: 12px; color: #bbb;\">\r\n        <section style=\"float: left; width: 60%\">\r\n         <img id=\"head\" alt=\"\" style=\"float: left; width: 30px; height: 30px; border-radius: 2px; margin-right: 10px;\">\r\n          <section>\r\n           <p id=\"name\" style=\"margin: 0;\"></p>\r\n          </section>\r\n        </section>\r\n        <section style=\"float: right;\">\r\n         <p id=\"date\" style=\"margin: 0;\">2015.12.12 20:00</p>\r\n        </section>\r\n      </section>\r\n      <section style=\"padding:10px; border-top: 1px solid #ececec;\">\r\n        <section>\r\n         <p id=\"des\" style=\"margin: 1em 0;\"></p>\r\n       </section>\r\n        <section>\r\n         <ul style=\"padding: 0; margin: 0 -10px -10px 0; list-style: none; overflow: hidden;\">\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n         </ul>\r\n       </section>\r\n      </section>\r\n    </section>\r\n    <section style=\"padding-bottom: 20px; color: #bbb; font-size: 12px; line-height: 1.5;\">\r\n     <p style=\"margin: 0; text-align: right;\">来自微博</p>\r\n   </section>\r\n  </section>\r\n        <section>\r\n         <ul style=\"padding: 0; margin: 0 -10px -10px 0; list-style: none; overflow: hidden;\">\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n           <li style=\"float: left; width: 33.3%; padding:0 10px 10px 0; border-radius: 5px; overflow: hidden; box-sizing: border-box;\"><img alt=\"\" style=\"width: 100%;vertical-align: top;border: none; border-radius: 5px;\"></li>\r\n         </ul>\r\n       </section>\r\n      </section>\r\n    </section>\r\n    <section style=\"padding-bottom: 20px; color: #bbb; font-size: 12px; line-height: 1.5;\">\r\n     <p style=\"margin: 0; text-align: right;\">来自微博</p>\r\n   </section>\r\n  </section>');
+
+ALTER TABLE `kcmd`.`kcmd_article`
+ADD COLUMN `updated` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP AFTER `content`;
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `content`;
+
+ALTER TABLE `kcmd`.`kcmd_inlineblock`
+ADD COLUMN `ori_html` LONGTEXT NULL DEFAULT NULL AFTER `content`;
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `ori_html` LONGTEXT NULL DEFAULT NULL AFTER `content`;
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `type` VARCHAR(45) NULL DEFAULT NULL AFTER `ori_html`;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+ADD COLUMN `userid` VARCHAR(45) NULL AFTER `id`;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+CHANGE COLUMN `updated` `updated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+CREATE TABLE `kcmd`.`kcmd_user_collection` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `template_id` INT NULL DEFAULT 0,
+  `html_json` LONGTEXT NULL DEFAULT NULL,
+  `html_ori` LONGTEXT NULL DEFAULT NULL,
+  `updated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+  ALTER TABLE `kcmd`.`kcmd_inlineblock`
+  ADD COLUMN `userid` VARCHAR(45) NULL AFTER `ori_html`,
+  ADD COLUMN `updated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `userid`;
+
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `subtype` VARCHAR(45) NULL DEFAULT NULL AFTER `type`;
+
+
+DROP TABLE IF EXISTS `kcmd_weibocookie`;
+CREATE TABLE `kcmd_weibocookie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cookie` longtext,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+ALTER TABLE `kcmd`.`kcmd_user_collection`
+DROP COLUMN `html_ori`,
+DROP COLUMN `html_json`,
+CHANGE COLUMN `template_id` `targetid` INT(11) NULL DEFAULT '0' ,
+ADD COLUMN `type` VARCHAR(45) NULL AFTER `targetid`;
+
+CREATE TABLE `kcmd`.`kcmd_user_library` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `userid` INT NOT NULL,
+  `url` VARCHAR(500) NULL,
+  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `kcmd`.`kcmd_user_collection`
+ADD COLUMN `userid` VARCHAR(45) NOT NULL AFTER `id`;
+
+ALTER TABLE `kcmd`.`kcmd_user_library`
+CHANGE COLUMN `userid` `userid` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+ADD COLUMN `title` VARCHAR(128) NULL AFTER `userid`,
+ADD COLUMN `img` VARCHAR(256) NULL AFTER `title`;
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `archive` TINYINT(1) NOT NULL DEFAULT 0 AFTER `subtype`;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+ADD COLUMN `desc` VARCHAR(200) NULL AFTER `title`;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+CHANGE COLUMN `desc` `description` VARCHAR(200) NULL DEFAULT NULL ;
+
+ALTER TABLE `kcmd`.`kcmd_article`
+CHANGE COLUMN `content` `content` LONGTEXT CHARACTER SET 'utf8mb4' NULL DEFAULT NULL ;
+
+ALTER TABLE `kcmd`.`kcmd_template`
+ADD COLUMN `weight` INT NOT NULL DEFAULT 0 AFTER `subtype`;
+
+CREATE TABLE `kcmd`.`kcmd_op_history` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `articleid` INT NOT NULL,
+  `op` VARCHAR(45) NOT NULL,
+  `kcpath` VARCHAR(256) NOT NULL,
+  `from` LONGTEXT NULL,
+  `to` LONGTEXT NULL,
+  `updated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));

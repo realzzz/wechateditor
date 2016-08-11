@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>多维编辑器管理后台-用户信息</title>
+<link rel="stylesheet" type="text/css" href="/css/manager.css" />
+</head>
+<body style="height:100%">
+<% include frame/header.ejs %>
+<% include frame/siderbar.ejs %>
+<div style="height:100%">
+	<div class="tc bgb2 w2" style="    height: 100%;">
+		<div class="di bgw b2 br2" style="margin-top: 67px;margin-left: 100px;">
+			<div class="w6">
+				<div class="bgw pd10 tl">
+					<img src="../images/p1_6.jpg" class="di ml20" />
+				</div>
+				<div class="fs20 colorb mt30 mb30 ">微信公众号授权</div>
+				<div class="di">
+					<div class="bgw pd20">
+						<div class="fs0 b2 bbn pd10">
+							<img src="../images/p1_8_1.jpg" class="di vm" />
+							<input type="text" class="di vm ml10 lInput" />
+						</div>
+						<div class="fs0 b2 pd10">
+							<img src="../images/p1_8_2.jpg" class="di vm" />
+							<input type="text" class="di vm ml10 lInput" />
+						</div>
+						<div class="tc mt15 mb30"><a class="di bggr w3 pt10 pb10 br2 fs14 colorw">授权</a></div>
+					</div>
+					<div class="bgg1 fs0 tl pt30 pb30 pl10 pr10">
+						<img src="../images/p1_7.jpg" class="di vt mt30 mr10" />
+						<div class="di vt colorb">
+							<div class="fs14 pb10">多维编辑器</div>
+							<div class="fs12 pb10"><span class="colorg pr10">标签</span>图文消息</div>
+							<div class="fs0">
+								<div class="di vt fs12 colorg pr10">简介</div>
+								<div class="di vt fs12 w5">多维编辑器是一个移动端内容制作和发布平台，提供丰富的模板和好用的体验，让你快速制作出极具新意的内容，打动你的人群！</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script data-main="/js/manager/config.js" src="/bower_components/requirejs/require.js">
+</script>
+
+<script>
+require(['/js/manager/auth.js'], function(initialize) {
+    initialize();
+});
+</script>
+</body>
+</html>

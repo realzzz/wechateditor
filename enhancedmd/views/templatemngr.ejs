@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" type="text/css" href="/css/grid-0.5.6.min.css"/>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <style>
+		.slice{
+			margin: 20px 0;
+			border-bottom: 1px dotted #ddd;
+		}
+        .tablebtn{
+            float: left;
+            position: relative;
+        }
+	</style>
+  </head>
+  <body>
+    <div>
+        <!-- add template part -->
+        <h4>添加模板</h4>
+        <div class="input-group">
+             <span  class="input-group-addon">类型</span>
+             <input id ="maintypec" type="text" class="form-control" placeholder="输入主类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <span class="input-group-addon">次类型</span>
+             <input id ="sectypec" type="text" class="form-control" placeholder="输入次类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <span class="input-group-addon">html</span>
+             <input id ="htmlc" type="text" class="form-control" placeholder="输入html" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+
+             <button id = "tc" type="button" class="btn btn-primary"
+               data-toggle="button"> 添加
+             </button>
+        </div>
+
+        <p class="slice"></p>
+
+        <h4>查询模板</h4>
+        <div class="input-group">
+             <span  class="input-group-addon">类型</span>
+             <input id ="maintypeq" type="text" class="form-control" placeholder="主类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <span class="input-group-addon">次类型</span>
+             <input id ="sectypeq" type="text" class="form-control" placeholder="次类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+
+             <button id = "tq" type="button" class="btn btn-primary"
+               data-toggle="button"> 查询
+             </button>
+             <div >
+                 <div id="tqlist" class=" tablebtn">
+
+                </div>
+             </div>
+        </div>
+
+
+        <p class="slice"></p>
+
+
+        <h4>更新模板</h4>
+        <div class="input-group">
+             <span class="input-group-addon">id</span>
+             <input id ="idq" type="text" class="form-control" placeholder="输入id" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <span  class="input-group-addon">类型</span>
+             <input id ="maintypeu" type="text" class="form-control" placeholder="输入主类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <span class="input-group-addon">次类型</span>
+             <input id ="sectypeu" type="text" class="form-control" placeholder="输入次类型" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+              <span class="input-group-addon">权重(默认0)</span>
+              <input id ="weightu" type="text" class="form-control" placeholder="输入权重" data-container="body" data-toggle="popover" data-placement="bottom"
+        data-content="请输入参数">
+
+              <span class="input-group-addon">新html</span>
+              <input id ="htmlu" type="text" class="form-control" placeholder="输入次类型" data-container="body" data-toggle="popover" data-placement="bottom"
+        data-content="请输入参数">
+
+             <button id = "tu" type="button" class="btn btn-primary"
+               data-toggle="button"> 更新
+             </button>
+        </div>
+
+        <p class="slice"></p>
+
+        <!--
+        <h4>删除模板</h4>
+        <div class="input-group">
+             <span class="input-group-addon">id</span>
+             <input id ="idd" type="text" class="form-control" placeholder="输入id" data-container="body" data-toggle="popover" data-placement="bottom"
+      data-content="请输入参数">
+             <button id = "td" type="button" class="btn btn-primary"
+               data-toggle="button"> 删除
+             </button>
+        </div>
+        -->
+        <p class="slice"></p>
+        <div id="canvas">
+        </div>
+
+        <p class="slice"></p>
+        <div>
+            <textarea readonly id="htmltext" style='width:100%'>
+
+            </textarea>
+        </div>
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+           aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+              <div class="modal-content">
+                 <div class="modal-header">
+                    <button type="button" class="close"
+                       data-dismiss="modal" aria-hidden="true">
+                          &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+
+                    </h4>
+                 </div>
+                 <div class="modal-body" id="myModalbody">
+
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                       data-dismiss="modal">关闭
+                    </button>
+
+                 </div>
+              </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+
+    </div>
+
+    <script>
+        var verifyInput = function(selectors){
+            var valide = 1;
+            for (var i = 0; i < selectors.length; i++) {
+                var selector = selectors[i];
+                if ($(selector).val() =="") {
+                    valide = 0;
+                    $(selector).popover('show');
+                    setTimeout(function () {
+                        $(selector).popover('hide');
+                    }, 1500);
+                    break;
+                }
+            }
+            return valide;
+        }
+
+        $('#tc').click(function(){
+            if (verifyInput(['#maintypec', '#sectypec', '#htmlc']) == 1) {
+                var mtypec = $('#maintypec').val();
+                var stypec = $('#sectypec').val();
+                var htmlc = $('#htmlc').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/templatemngr/insert",
+                    data: JSON.stringify({type: mtypec, subtype: stypec, html: htmlc}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (resultobj) {
+                        $("#myModalLabel").html("添加结果");
+                        $("#myModalbody").html(resultobj);
+                        console.log("result  = " + resultobj);
+                        $("#myModal").modal('show');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+            }
+        });
+
+        $('#tq').click(function(){
+            if (verifyInput(['#maintypeq']) == 1) {
+                var mtypeq = $('#maintypeq').val();
+                var stypeq = $('#sectypeq').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/templatemngr/querybytype",
+                    data: JSON.stringify({type: mtypeq, subtype: stypeq}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (resultobj) {
+                        console.log("result  = " + resultobj);
+                        var idArray = JSON.parse(resultobj);
+                        $('#tqlist').html("");
+                        for (var i = 0; i < idArray.length; i++) {
+                            var tmpid = idArray[i];
+                            var appendhtml = "<button type=\"button\" class=\"btn btn-default btn-render\"  tid=\""+tmpid['id']+"\">"+tmpid['id']+"</button>"
+                            $('#tqlist').append(appendhtml);
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+            }
+        });
+
+        $('#tu').click(function(){
+            if (verifyInput(['#idq', '#maintypeu', '#sectypeu']) == 1  || verifyInput(['#idq','#htmlu'] ==1 ) || verifyInput(['#idq','#weightu'] ==1 )) {
+                var idq = $('#idq').val();
+                var mtypeu = $('#maintypeu').val();
+                var stypeu = $('#sectypeu').val();
+                var weightu = $('#weightu').val();
+                var htmlu = $('#htmlu').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/templatemngr/updatetype",
+                    data: JSON.stringify({tid: idq, type: mtypeu, subtype: stypeu, weight:weightu, html:htmlu}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (resultobj) {
+                        $("#myModalLabel").html("更新成功");
+                        $("#myModalbody").html(resultobj);
+                        console.log("result  = " + resultobj);
+                        $("#myModal").modal('show');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+
+            }
+        });
+
+        $('#td').click(function(){
+            if (verifyInput(['#idd']) == 1) {
+                var idd = $('#idd').val();
+
+
+            }
+        });
+
+        $(document).on('click', '.btn-render', function(){
+            var targetid = event.target.textContent;
+            console.log("try to render tid " + targetid);
+
+            $.ajax({
+                type: "POST",
+                url: "/templatemngr/render",
+                data: JSON.stringify({tid: targetid}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (robj) {
+                    console.log("result  = " + robj);
+                    var resultobj = JSON.parse(robj);
+                    var trhtml = resultobj['render'];
+                    var renderHtml = trhtml.replace(/\\"/g, '"');
+                    var oriHtml = resultobj['html'].replace(/\\"/g, '"');
+                    $('#canvas').html(renderHtml);
+                    $('#htmltext').html(oriHtml);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        });
+
+
+    </script>
+
+  </body>
+</html>

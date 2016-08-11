@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>多维编辑器管理后台-用户信息</title>
+<link rel="stylesheet" type="text/css" href="/css/manager.css" />
+</head>
+<body style="height:100%">
+<% include frame/header.ejs %>
+<% include frame/siderbar.ejs %>
+<div style="height:100%">
+	<div class="tc bgb2 w2">
+		<div class="di bgw b2 br2" style="margin-top: 67px;margin-left: 100px;">
+			<div class="mg30">
+				<div class="db fs0 pt10 pb20 tr colorg">
+					<input type="text" class="di vm dInput" placeholder="2016-05-26" />
+					<div class="di vm pl5 pr5 fs14">-</div>
+					<input type="text" class="di vm dInput" placeholder="2016-05-26" />
+					<div class="di vm pl15 pr10 fs12 colorw tc">
+						<div class="bgy pd3_5">查询</div>
+					</div>
+					<div class="di vm pl15 pr10 fs12 colorw tc">
+						<div class="bgy pd3_5"><a href="syncarticle">添加同步</a></div>
+					</div>
+				</div>
+				<div id="article_box" class="w6 clearfix tl">
+					<ul style="width:1140px;position:relative;">
+					
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script data-main="/js/manager/config.js" src="/bower_components/requirejs/require.js">
+</script>
+
+<script>
+require(['/js/manager/article.js'], function(initialize) {
+    initialize();
+});
+</script>
+</body>
+</html>

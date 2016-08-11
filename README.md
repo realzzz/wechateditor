@@ -27,8 +27,8 @@ An online(production) site is the best explaination of this project, visit [DWED
 
 ## How to start
 
-1. Get mysql env ready. Run [Mysql tables initialize scripts](enahncedmd/util/mysql.txt)
-2. (Optional) Import templates into mysql using [Templates data scripts](enhancedmd/util/templte.sql)
+1. Get mysql env ready. Run [Mysql tables initialize scripts](enhancedmd/util/mysql.txt)
+2. (Optional) Import templates into mysql using [Templates data scripts](enhancedmd/util/template.sql)
 3. Set up your mysql env at [env.json](enhancedmd/util/env.json) for mysql host,port,user,pwd,db.
 4. (Optional - if you want to store image) Set up your qiniu account at [env.json](enhancedmd/util/env.json) for qiniu bucket, url, accesskey, secret
 5. (Optional - if you want to have user system) Set up LeanCloud apikey&secret at [boot.js line18](enhancedmd/public/js/KCEPROD/boot/boot.js)

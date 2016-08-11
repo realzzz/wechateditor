@@ -44,7 +44,7 @@ This is our company's project from scratch since Feb/2016, the development last 
 
 This is project is in half-abandoned state as our limited resource and uncertainty about the direction of product, so I open-sourced this in order to serve as reference for anyone who is interested in doing similar product.
 
-Other two engineer who involved in this project:
+Other two engineers who involved in this project:
 
 - [Vaninadh](https://github.com/mindyue) UI framework designer, main developer for editor UI.
 - [Xuyitao](https://github.com/xuyitao) Web spider expert, everything related to spider is his contribution.

@@ -32,7 +32,8 @@ An online(production) site is the best explaination of this project, visit [DWED
 4. (Optional - if you want to store image) Set up your qiniu account at [env.json](enhancedmd/util/env.json) for qiniu bucket, url, accesskey, secret
 5. (Optional - if you want to have user system) Set up LeanCloud apikey&secret at [boot.js line18](enhancedmd/public/js/KCEPROD/boot/boot.js)
 6. Run npm install under enhancedmd to get all the dependency packages ready.
-7. Start server under enhancedmd  (recommand way -  for development : `supervisor bin/www`   for debug  : `node-debug bin/www` ) . Visit [localhost](http://localhost:3000)
+7. Run bower install under enhancedmd to get dependency ui modules ready.
+8. Start server under enhancedmd  (recommand way -  for development : `supervisor bin/www`   for debug  : `node-debug bin/www` ) . Visit [localhost](http://localhost:3000)
 
 ### Check out desgins & code guidence at this [Doc](Docs/design.md)
 

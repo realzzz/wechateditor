@@ -36,5 +36,7 @@ An online(production) site is the best explaination of this project, visit [DWED
 ### Check out desgins & code guidence at this [Doc](Docs/design.md)
 
 ### About this project
-This is our companies project starting from Feb/2016, the development last for about three month.
-I've designed the whole architecture and implement majority of the code. 
+This is our company's project from scratch since Feb/2016, the development last for about three month.
+I've designed the whole architecture and implement majority of the code.  
+Other two engineer who involved in this project:
+
